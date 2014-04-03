@@ -1,0 +1,84 @@
+catroweb@webbox:$ ant runcukes -Doptions="--tags @pocket-code"
+Buildfile: /home/catroweb/Workspace/catroweb/tests/another-cucumber/build.xml
+
+classpath:
+
+compile:
+
+runcukes:
+@pocket-code
+Feature: Provide key functionalities to Catrobats community website
+@pocket-code
+Feature: Provide key functionalities to Catrobats community website
+
+  @slow
+  Scenario Outline: Use the language switch to change the websites language # at/tugraz/ist/cucumber/pocketCode.feature:11
+    Given I am on the startpage
+    And the websites language is "English"
+    When I change the language to "<language>"
+    Then the title of the newest section should be "<title>"
+
+    Examples: 
+
+  @pocket-code @slow
+  Scenario Outline: Use the language switch to change the websites language # at/tugraz/ist/cucumber/pocketCode.feature:19
+    Given I am on the startpage                                             # SeleniumStepdefs.I_am_on_the_startpage()
+    And the websites language is "English"                                  # SeleniumStepdefs.the_websites_language_is(String)
+    When I change the language to "Deutsch"                                 # SeleniumStepdefs.I_change_the_language_to(String)
+    Then the title of the newest section should be "NEUESTE"                # SeleniumStepdefs.the_title_of_the_newest_section_should_be(String)
+
+  @fast
+  Scenario: Open the startpage and check for a certain text     # at/tugraz/ist/cucumber/pocketCode.feature:5
+    Given I am on the startpage                                 # SeleniumStepdefs.I_am_on_the_startpage()
+    When I change the language to "English"                     # SeleniumStepdefs.I_change_the_language_to(String)
+    Then the title of the featured section should be "FEATURED" # SeleniumStepdefs.the_title_of_the_featured_section_should_be(String)
+
+  @pocket-code @slow
+  Scenario Outline: Use the language switch to change the websites language # at/tugraz/ist/cucumber/pocketCode.feature:20
+    Given I am on the startpage                                             # SeleniumStepdefs.I_am_on_the_startpage()
+    And the websites language is "English"                                  # SeleniumStepdefs.the_websites_language_is(String)
+    When I change the language to "日本語"                                     # SeleniumStepdefs.I_change_the_language_to(String)
+    Then the title of the newest section should be "最新プロジェクト"               # SeleniumStepdefs.the_title_of_the_newest_section_should_be(String)
+
+  @fast
+  Scenario: Use the search function to find a project                          # at/tugraz/ist/cucumber/pocketCode.feature:25
+    Given I am on the startpage                                                # SeleniumStepdefs.I_am_on_the_startpage()
+    And the websites language is "English"                                     # SeleniumStepdefs.the_websites_language_is(String)
+    When I use the top search box to search for a project called "Tic-Tac-Toe" # SeleniumStepdefs.I_use_the_top_search_box_to_search_for_a_project_called(String)
+    Then I should see "Search Results"                                         # SeleniumStepdefs.I_should_see(String)
+    And the number of search results should be 1                               # SeleniumStepdefs.the_number_of_results_should_be(int)
+
+  @pocket-code @slow
+  Scenario Outline: Use the language switch to change the websites language # at/tugraz/ist/cucumber/pocketCode.feature:21
+    Given I am on the startpage                                             # SeleniumStepdefs.I_am_on_the_startpage()
+    And the websites language is "English"                                  # SeleniumStepdefs.the_websites_language_is(String)
+    When I change the language to "русский"                                 # SeleniumStepdefs.I_change_the_language_to(String)
+    Then the title of the newest section should be "НОВЕЙШИЕ ПРОЕКТЫ"       # SeleniumStepdefs.the_title_of_the_newest_section_should_be(String)
+
+  @fast
+  Scenario: Increase the download count when a project is downloaded # at/tugraz/ist/cucumber/pocketCode.feature:33
+    Given I am on the details page of the project 1478               # SeleniumStepdefs.I_am_on_the_details_page_of_the_project(int)
+    And the websites language is "English"                           # SeleniumStepdefs.the_websites_language_is(String)
+    When I press the download button                                 # SeleniumStepdefs.I_press_the_download_button()
+    Then the download count should be increased by one               # SeleniumStepdefs.the_download_count_should_be_increased_by_one()
+
+3 Scenarios (3 passed)
+12 Steps (12 passed)
+0m41.782s
+
+
+  @pocket-code @slow
+  Scenario Outline: Use the language switch to change the websites language # at/tugraz/ist/cucumber/pocketCode.feature:22
+    Given I am on the startpage                                             # SeleniumStepdefs.I_am_on_the_startpage()
+    And the websites language is "English"                                  # SeleniumStepdefs.the_websites_language_is(String)
+    When I change the language to "Bahasa Melayu‬"                          # SeleniumStepdefs.I_change_the_language_to(String)
+    Then the title of the newest section should be "PROJEK TERBARU"         # SeleniumStepdefs.the_title_of_the_newest_section_should_be(String)
+
+4 Scenarios (4 passed)
+16 Steps (16 passed)
+0m49.510s
+
+
+BUILD SUCCESSFUL
+Total time: 51 seconds
+
