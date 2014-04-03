@@ -1,0 +1,66 @@
+catroweb@webbox:$ ant runcukes -Doptions="--tags @demo" -DseleniumHost=192.168.1.150
+Buildfile: /home/catroweb/Workspace/catroweb/tests/another-cucumber/build.xml
+
+classpath:
+
+compile:
+
+runcukes:
+@demo
+Feature: Demonstrate the use of various browsers in a Selenium Grid setup
+@demo
+Feature: Demonstrate the use of various browsers in a Selenium Grid setup
+
+
+  @fast @firefox
+  Scenario: Visit useragentstring.com using Firefox browser # at/tugraz/ist/cucumber/demonstration.feature:12
+    Given I use Firefox browser                             # SeleniumStepdefs.I_use_Firefox_browser()
+    When I visit "http://www.useragentstring.com"           # SeleniumStepdefs.I_visit(String)
+    Then I should see "User Agent String explained"         # SeleniumStepdefs.I_should_see(String)
+    And a screenshot should be taken                        # SeleniumStepdefs.a_screenshot_should_be_taken()
+
+
+  @fast @chrome
+  Scenario: Visit useragentstring.com using Chrome browser # at/tugraz/ist/cucumber/demonstration.feature:19
+    Given I use Chrome browser                             # SeleniumStepdefs.I_use_Chrome_browser()
+    When I visit "http://www.useragentstring.com"          # SeleniumStepdefs.I_visit(String)
+    Then I should see "User Agent String explained"        # SeleniumStepdefs.I_should_see(String)
+    And a screenshot should be taken                       # SeleniumStepdefs.a_screenshot_should_be_taken()
+
+
+  @fast @safari
+  Scenario: Visit useragentstring.com using Safari browser # at/tugraz/ist/cucumber/demonstration.feature:26
+    Given I use Safari browser                             # SeleniumStepdefs.I_use_Safari_browser()
+    When I visit "http://www.useragentstring.com"          # SeleniumStepdefs.I_visit(String)
+    Then I should see "User Agent String explained"        # SeleniumStepdefs.I_should_see(String)
+    And a screenshot should be taken                       # SeleniumStepdefs.a_screenshot_should_be_taken()
+
+
+
+  @fast @internet-explorer
+  Scenario: Visit useragentstring.com using Internet Explorer browser # at/tugraz/ist/cucumber/demonstration.feature:33
+    Given I use Internet Explorer browser                             # SeleniumStepdefs.I_use_Internet_Explorer_browser()
+    When I visit "http://www.useragentstring.com"                     # SeleniumStepdefs.I_visit(String)
+    Then I should see "User Agent String explained"                   # SeleniumStepdefs.I_should_see(String)
+    And a screenshot should be taken                                  # SeleniumStepdefs.a_screenshot_should_be_taken()
+
+4 Scenarios (4 passed)
+16 Steps (16 passed)
+0m17.123s
+
+
+  @slow @android
+  Scenario: Visit useragentstring.com using Android browser # at/tugraz/ist/cucumber/demonstration.feature:5
+    Given I use Android browser                             # SeleniumStepdefs.I_use_Android_browser()
+    When I visit "http://www.useragentstring.com"           # SeleniumStepdefs.I_visit(String)
+    Then I should see "User Agent String explained"         # SeleniumStepdefs.I_should_see(String)
+    And a screenshot should be taken                        # SeleniumStepdefs.a_screenshot_should_be_taken()
+
+1 Scenarios (1 passed)
+4 Steps (4 passed)
+0m18.678s
+
+
+BUILD SUCCESSFUL
+Total time: 20 seconds
+
