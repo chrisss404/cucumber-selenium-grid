@@ -59,13 +59,11 @@ An example of the grid hub console with connected nodes, as described above, is 
 **`download-util`** Downloads utility libraries to launch Selenium Grid hub or Selenium WebDriver nodes.
 
 **`download`** Downloads *development* and *utility* libraries.
-<br />
 
 **`launch-hub`** Launches a Selenium Grid hub instance.
 - define individual hub port: `-DhubPort=4445`
 
 **`stop-hub`** Halts running Selenium Grid hub instances.
-<br />
 
 **`launch-node-firefox`** Launches a Firefox WebDriver instance and connects it to the Selenium Grid hub.
 - define individual hub host: `-DhubHost=192.168.1.150`
@@ -89,7 +87,6 @@ An example of the grid hub console with connected nodes, as described above, is 
 - define individual hub port: `-DhubPort=4445`
 
 **`stop-nodes`** Halts running Selenium WebDriver instances.
-<br />
 
 **`runcukes`** Compiles step definitions and executes features.
 - define Cucumber arguments: `-Doptions="--tags @demo"`
@@ -97,7 +94,6 @@ An example of the grid hub console with connected nodes, as described above, is 
 - define individual hub port: `-DhubPort=4445`
 
 **`runcukes-standalone`** Launches a Grid hub, a Firefox WebDriver and executes all scenarios tagged *@pocket-code*.
-<br />
 
 **`clean`** Deletes compiled classes and previously generated test reports.
 
