@@ -204,7 +204,7 @@
 
   <target name="-launch-node">
     <property name="maxInstances" value="5"/>
-	  <property name="platform" value=""/>
+    <property name="platform" value=""/>
     <property name="nodeTimeout" value="30"/>
     <property name="browserName" value="firefox"/>
     <property name="browserVersion" value="22.0"/>
