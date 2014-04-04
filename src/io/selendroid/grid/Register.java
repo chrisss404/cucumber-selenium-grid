@@ -35,14 +35,14 @@ class Register {
   private static String browserName = "android";
   private static String browserVersion = "4.1";
   private static String nodeTimeout = "30";
-  
+
   public static void main(String[] args) {
     findHost();
     setArguments(args);
-    
+
     System.out.println("   hub: http://" + hubHost + ":" + hubPort + "/grid/console");
     System.out.println("client: http://" + host + ":" + port + "/wd/hub/status");
-    
+
     if(!register()) {
       System.exit(-1);
     }
@@ -70,7 +70,7 @@ class Register {
     } catch(ArrayIndexOutOfBoundsException ignore) {
     }
   }
-  
+
   private static void findHost() {
     try {
       InetAddress address = null;
@@ -87,7 +87,7 @@ class Register {
     } catch(SocketException ignore) {
     }  
   }
-    
+
   private static boolean register() {
     String config = "{" +
       "\"capabilities\": [{" + 
@@ -117,16 +117,16 @@ class Register {
     try {
       URL url = new URL("http://" + hubHost + ":" + hubPort + "/grid/register");
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-   
+
       connection.setRequestMethod("POST");
       connection.setRequestProperty("Content-Type", "application/json");
       connection.setDoOutput(true);
-   
+
       DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
       outputStream.writeBytes(config);
       outputStream.flush();
       outputStream.close();
-   
+
       return (connection.getResponseCode() == 200);
     } catch(MalformedURLException e) {
       e.printStackTrace();
@@ -136,4 +136,3 @@ class Register {
     return false;
   }
 }
-

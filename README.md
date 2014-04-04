@@ -13,7 +13,7 @@ This allows to perform automated acceptance tests on web applications employing 
 - `ant download`
 - `ant runcukes-standalone`
 
-Running these commands produces two test reports for the aforementioned test groups. An example of the resulting reports containing scenarios tagged <a href="https://rawgithub.com/chrisss404/cucumber-selenium-grid/master/example-output/pocket-code/cucumber-html-report-fast/index.html" target="_blank">@fast</a> and scenarios tagged <a href="https://rawgithub.com/chrisss404/cucumber-selenium-grid/master/example-output/pocket-code/cucumber-html-report-slow/index.html" target="_blank">@slow</a> are available.
+Running these commands produces two test reports for the aforementioned test groups. An example of the resulting reports containing scenarios tagged <a href="https://rawgithub.com/chrisss404/cucumber-selenium-grid/master/samples/pocket-code/cucumber-html-report-fast/index.html" target="_blank">@fast</a> and scenarios tagged <a href="https://rawgithub.com/chrisss404/cucumber-selenium-grid/master/samples/pocket-code/cucumber-html-report-slow/index.html" target="_blank">@slow</a> are available.
 
 ----
 
@@ -48,7 +48,7 @@ Running these commands produces two test reports for the aforementioned test gro
 
 #### Results
 
-An example of the grid hub console with connected nodes, as described above, is illustrated <a href="https://rawgithub.com/chrisss404/cucumber-selenium-grid/master/example-output/grid-console/index.html" target="_blank">here</a> and the produced test reports for scenarios tagged <a href="https://rawgithub.com/chrisss404/cucumber-selenium-grid/master/example-output/demo/cucumber-html-report-fast/index.html" target="_blank">@fast</a> and scenarios tagged <a href="https://rawgithub.com/chrisss404/cucumber-selenium-grid/master/example-output/demo/cucumber-html-report-slow/index.html" target="_blank">@slow</a> are also available.
+An example of the grid hub console with connected nodes, as described above, is illustrated <a href="https://rawgithub.com/chrisss404/cucumber-selenium-grid/master/samples/grid-console/index.html" target="_blank">here</a> and the produced test reports for scenarios tagged <a href="https://rawgithub.com/chrisss404/cucumber-selenium-grid/master/samples/demo/cucumber-html-report-fast/index.html" target="_blank">@fast</a> and scenarios tagged <a href="https://rawgithub.com/chrisss404/cucumber-selenium-grid/master/samples/demo/cucumber-html-report-slow/index.html" target="_blank">@slow</a> are also available.
 
 ----
 
@@ -59,11 +59,13 @@ An example of the grid hub console with connected nodes, as described above, is 
 **`download-util`** Downloads utility libraries to launch Selenium Grid hub or Selenium WebDriver nodes.
 
 **`download`** Downloads *development* and *utility* libraries.
+------
 
 **`launch-hub`** Launches a Selenium Grid hub instance.
 - define individual hub port: `-DhubPort=4445`
 
 **`stop-hub`** Halts running Selenium Grid hub instances.
+------
 
 **`launch-node-firefox`** Launches a Firefox WebDriver instance and connects it to the Selenium Grid hub.
 - define individual hub host: `-DhubHost=192.168.1.150`
@@ -87,6 +89,7 @@ An example of the grid hub console with connected nodes, as described above, is 
 - define individual hub port: `-DhubPort=4445`
 
 **`stop-nodes`** Halts running Selenium WebDriver instances.
+------
 
 **`runcukes`** Compiles step definitions and executes features.
 - define Cucumber arguments: `-Doptions="--tags @demo"`
@@ -94,8 +97,8 @@ An example of the grid hub console with connected nodes, as described above, is 
 - define individual hub port: `-DhubPort=4445`
 
 **`runcukes-standalone`** Launches a Grid hub, a Firefox WebDriver and executes all scenarios tagged *@pocket-code*.
+------
 
 **`clean`** Deletes compiled classes and previously generated test reports.
 
 **`clobber`** Deletes compiled classes, previously generated test reports, and downloaded libraries.
-

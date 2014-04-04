@@ -216,7 +216,7 @@
     </condition>
     <antcall target="-start-node"/>
   </target>
-  
+
   <target name="-start-node" unless="remote-socket.open">
     <exec dir="${jars}" executable="java" spawn="true">
       <arg line="-jar selenium-server-standalone-${selenium.version-full}.jar" />

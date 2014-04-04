@@ -1,5 +1,5 @@
 @pocket-code
-Feature: Provide key functionalities to Catrobats community website 
+Feature: Provide key functionalities to Catrobats community website
 
   @fast
   Scenario: Open the startpage and check for a certain text
@@ -8,12 +8,12 @@ Feature: Provide key functionalities to Catrobats community website
     Then the title of the featured section should be "FEATURED"
 
   @slow
-  Scenario Outline: Use the language switch to change the websites language 
+  Scenario Outline: Use the language switch to change the websites language
     Given I am on the startpage
     And the websites language is "English"
     When I change the language to "<language>"
     Then the title of the newest section should be "<title>"
-    
+
     Examples:
     	| language      | title            |
     	| Deutsch       | NEUESTE          |
@@ -35,4 +35,3 @@ Feature: Provide key functionalities to Catrobats community website
     And the websites language is "English"
     When I press the download button
     Then the download count should be increased by one
-

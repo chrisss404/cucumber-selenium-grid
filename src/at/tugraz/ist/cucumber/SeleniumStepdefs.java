@@ -60,7 +60,7 @@ public class SeleniumStepdefs {
     this.hubHost = System.getProperty("hubHost");
     this.hubPort = System.getProperty("hubPort");
   }
-  
+
   @After
   public void destroySelenium() {
     if(this.scenario.isFailed()) {
@@ -100,7 +100,6 @@ public class SeleniumStepdefs {
     runOnAndroid();
   }
 
-
   @Given("^I am on the startpage$")
   public void I_am_on_the_startpage() throws Throwable {
     driver().get(this.website);
@@ -116,7 +115,6 @@ public class SeleniumStepdefs {
   public void I_am_on_the_details_page_of_the_project(int projectId) throws Throwable {
     driver().get(this.website + "/details/" + projectId);
   }
-
 
 
   @When("^I visit \"([^\"]*)\"$")
@@ -143,7 +141,7 @@ public class SeleniumStepdefs {
     WebElement largeTopSearchBox = driver().findElement(By.xpath("//*[@id='largeMenu']/div[4]/input"));
     WebElement mobileSearchBox = driver().findElement(By.xpath("//*[@id='smallSearchBar']/input"));
     WebElement mobileSearchButton = driver().findElement(By.id("mobileSearchButton"));
-    
+
     if(largeTopSearchBox.isDisplayed()) {
       largeTopSearchBox.clear();
       largeTopSearchBox.sendKeys(projectName);
@@ -165,17 +163,16 @@ public class SeleniumStepdefs {
   }
 
 
-
   @Then("^the title of the featured section should be \"([^\"]*)\"$")
   public void the_title_of_the_featured_section_should_be(String title) throws Throwable {
     Assert.assertEquals(title, driver().findElement(By.xpath("//*[@id=\"programmOfTheWeek\"]/header")).getText());
   }
-  
+
   @Then("^the title of the newest section should be \"([^\"]*)\"$")
   public void the_title_of_the_newest_section_should_be(String title) throws Throwable {
     Assert.assertEquals(title, driver().findElement(By.xpath("/html/body/div/article/header[3]")).getText());
   }
-  
+
   @Then("^I should see \"([^\"]*)\"$")
   public void I_should_see(String text) throws Throwable {
     Assert.assertTrue("<[" + text + "]> is not present on current page!", isTextPresent(text));
@@ -208,7 +205,7 @@ public class SeleniumStepdefs {
     }
     return driver;
   }
-  
+
   private void runOnFirefox() {
     FirefoxProfile profile = new FirefoxProfile();
     DesiredCapabilities capabilities = DesiredCapabilities.firefox();
@@ -220,7 +217,7 @@ public class SeleniumStepdefs {
     DesiredCapabilities capabilities = DesiredCapabilities.chrome();
     initDriver(capabilities);
   }
-  
+
   private void runOnSafari() {
     DesiredCapabilities capabilities = DesiredCapabilities.safari();
     initDriver(capabilities);
@@ -230,7 +227,7 @@ public class SeleniumStepdefs {
     DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
     initDriver(capabilities);
   }
-  
+
   private void runOnAndroid() {
     DesiredCapabilities capabilities = DesiredCapabilities.android();
     initDriver(capabilities);
