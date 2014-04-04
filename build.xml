@@ -1,0 +1,379 @@
+<!--
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<project name="Cucumber-driven Selenium Grid Testing" basedir="." default="runcukes-standalone">
+  <property name="jars" value="lib"/>
+  <property name="repo" value="https://oss.sonatype.org/content/repositories/releases"/>
+  <property name="central-repo" value="http://repo1.maven.org/maven2"/>
+
+  <property name="cucumber-jvm.version" value="1.1.6"/>
+  <property name="cucumber-jvm-deps.version" value="1.0.3"/>
+  <property name="gherkin.version" value="2.12.2"/>
+  <property name="cucumber-html.version" value="0.2.3"/>
+  <property name="junit.version" value="4.11"/>
+
+  <property name="selenium.version-minor" value="2.40"/>
+  <property name="selenium.version-full" value="2.40.0"/>
+  <property name="selendroid.version" value="0.9.0"/>
+
+  <property name="guava.version" value="14.0"/>
+  <property name="json.version" value="20140107"/>
+  <property name="httpcomponents.version" value="4.2.1"/>
+  <property name="commons-logging.version" value="1.1.1"/>
+  <property name="cglib.version" value="2.2.2"/>
+
+  <property name="website" value="http://pocketcode.org/"/>
+  <property name="hubHost" value="localhost"/>
+  <property name="hubPort" value="4444"/>
+  <property name="androidSDK" value="/path/to/android-sdk"/>
+
+
+
+  <!-- *** prepare test environment **************************************** -->
+  <target name="download" depends="download-devel,download-util"/>
+  
+  <target name="download-devel">
+    <mkdir dir="${jars}"/>
+    <get src="${repo}/info/cukes/cucumber-core/${cucumber-jvm.version}/cucumber-core-${cucumber-jvm.version}.jar"
+         dest="${jars}/cucumber-core-${cucumber-jvm.version}.jar"/>
+    <get src="${repo}/info/cukes/cucumber-java/${cucumber-jvm.version}/cucumber-java-${cucumber-jvm.version}.jar"
+         dest="${jars}/cucumber-java-${cucumber-jvm.version}.jar"/>
+    <get src="${repo}/info/cukes/cucumber-junit/${cucumber-jvm.version}/cucumber-junit-${cucumber-jvm.version}.jar"
+         dest="${jars}/cucumber-junit-${cucumber-jvm.version}.jar"/>
+    <get src="${repo}/info/cukes/cucumber-jvm-deps/${cucumber-jvm-deps.version}/cucumber-jvm-deps-${cucumber-jvm-deps.version}.jar"
+         dest="${jars}/cucumber-jvm-deps-${cucumber-jvm-deps.version}.jar"/>
+    <get src="${repo}/info/cukes/gherkin/${gherkin.version}/gherkin-${gherkin.version}.jar"
+         dest="${jars}/gherkin-${gherkin.version}.jar"/>
+    <get src="${repo}/info/cukes/cucumber-html/${cucumber-html.version}/cucumber-html-${cucumber-html.version}.jar"
+         dest="${jars}/cucumber-html-${cucumber-html.version}.jar"/>
+    <get src="${repo}/junit/junit/${junit.version}/junit-${junit.version}.jar"
+         dest="${jars}/junit-${junit.version}.jar"/>
+
+    <get src="${repo}/org/seleniumhq/selenium/selenium-api/${selenium.version-full}/selenium-api-${selenium.version-full}.jar"
+         dest="${jars}/selenium-api-${selenium.version-full}.jar"/>
+    <get src="${repo}/org/seleniumhq/selenium/selenium-remote-driver/${selenium.version-full}/selenium-remote-driver-${selenium.version-full}.jar"
+         dest="${jars}/selenium-remote-driver-${selenium.version-full}.jar"/>
+    <get src="${repo}/org/seleniumhq/selenium/selenium-firefox-driver/${selenium.version-full}/selenium-firefox-driver-${selenium.version-full}.jar"
+         dest="${jars}/selenium-firefox-driver-${selenium.version-full}.jar"/>
+    <get src="${repo}/org/seleniumhq/selenium/selenium-chrome-driver/${selenium.version-full}/selenium-chrome-driver-${selenium.version-full}.jar"
+         dest="${jars}/selenium-chrome-driver-${selenium.version-full}.jar"/>
+    <get src="${repo}/org/seleniumhq/selenium/selenium-safari-driver/${selenium.version-full}/selenium-safari-driver-${selenium.version-full}.jar"
+         dest="${jars}/selenium-safari-driver-${selenium.version-full}.jar"/>
+    <get src="${repo}/org/seleniumhq/selenium/selenium-ie-driver/${selenium.version-full}/selenium-ie-driver-${selenium.version-full}.jar"
+         dest="${jars}/selenium-ie-driver-${selenium.version-full}.jar"/>
+
+    <get src="${repo}/com/google/guava/guava/${guava.version}/guava-${guava.version}.jar"
+         dest="${jars}/guava-${guava.version}.jar"/>
+    <get src="${central-repo}/org/json/json/${json.version}/json-${json.version}.jar"
+         dest="${jars}/json-${json.version}.jar"/>
+    <get src="${central-repo}/org/apache/httpcomponents/httpcore/${httpcomponents.version}/httpcore-${httpcomponents.version}.jar"
+         dest="${jars}/httpcore-${httpcomponents.version}.jar"/>
+    <get src="${central-repo}/org/apache/httpcomponents/httpclient/${httpcomponents.version}/httpclient-${httpcomponents.version}.jar"
+         dest="${jars}/httpclient-${httpcomponents.version}.jar"/>
+    <get src="${central-repo}/commons-logging/commons-logging/${commons-logging.version}/commons-logging-${commons-logging.version}.jar"
+         dest="${jars}/commons-logging-${commons-logging.version}.jar"/>
+    <get src="${central-repo}/cglib/cglib-nodep/${cglib.version}/cglib-nodep-${cglib.version}.jar"
+         dest="${jars}/cglib-nodep-${cglib.version}.jar"/>
+  </target>
+
+  <target name="download-util">
+    <mkdir dir="${jars}"/>
+    <get src="http://selenium-release.storage.googleapis.com/${selenium.version-minor}/selenium-server-standalone-${selenium.version-full}.jar"
+         dest="${jars}/selenium-server-standalone-${selenium.version-full}.jar"/>
+    <get src="${repo}/io/selendroid/selendroid-standalone/${selendroid.version}/selendroid-standalone-${selendroid.version}-with-dependencies.jar"
+         dest="${jars}/selendroid-standalone-${selendroid.version}-with-dependencies.jar"/>
+    <get src="${repo}/io/selendroid/selendroid-grid-plugin/${selendroid.version}/selendroid-grid-plugin-${selendroid.version}.jar"
+         dest="${jars}/selendroid-grid-plugin-${selendroid.version}.jar"/>
+  </target>
+
+  <target name="-classpath">
+    <path id="classpath">
+      <fileset dir="${jars}">
+        <include name="**/*.jar"/>
+      </fileset>
+      <pathelement location="bin"/>
+    </path>
+  </target>
+
+
+
+  <!-- *** launch and stop selenium hub ************************************ -->
+  <target name="launch-hub" description="Launch Selenium Grid Hub">
+    <condition property="hub-socket.open">
+      <socket server="localhost" port="${hubPort}"/>
+    </condition>
+    <antcall target="-start-hub"/>
+  </target>
+
+  <target name="-start-hub" unless="hub-socket.open">
+    <java dir ="." classname="org.openqa.grid.selenium.GridLauncher" fork="true" spawn="true">
+      <classpath>
+        <fileset dir="${jars}">
+          <include name="selendroid-grid-plugin-${selendroid.version}.jar"/>
+          <include name="selenium-server-standalone-${selenium.version-full}.jar"/>
+        </fileset>
+      </classpath>
+      <arg line="-capabilityMatcher io.selendroid.grid.SelendroidCapabilityMatcher"/>
+      <arg line="-role hub"/>
+      <arg line="-port ${hubPort}"/>
+    </java>
+
+    <waitfor maxwait="3" maxwaitunit="minute" checkevery="100">
+      <socket server="localhost" port="${hubPort}"/>
+    </waitfor>
+    <echo message="Web Interface: http://localhost:${hubPort}/grid/console"/>
+  </target>
+
+
+  <target name="stop-hub" description="Stop Selenium Grid Hub">
+    <exec executable="bash" osfamily="Unix">
+      <arg value="-c"/>
+      <arg value="kill -9 `ps ux | awk '/org.openqa.grid.selenium.GridLauncher -capabilityMatcher io.selendroid.grid.SelendroidCapabilityMatcher -role hub/ &amp;&amp; !/awk/ {print $2}'`"/>
+    </exec>
+    <exec executable="cmd" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="WMIC PROCESS where (Commandline=&quot;org.openqa.grid.selenium.GridLauncher -capabilityMatcher io.selendroid.grid.SelendroidCapabilityMatcher -role hub&quot;) call terminate"/>
+    </exec>
+  </target>
+
+
+
+  <!-- *** launch and stop nodes ******************************************* -->
+  <target name="launch-node-firefox" description="Launch a Firefox WebDriver node">
+    <property name="browserName" value="firefox"/>
+    <property name="browserVersion" value="28.0"/>
+    <property name="port" value="5555"/>
+    <antcall target="-launch-node"/>
+  </target>
+
+  <target name="launch-node-chrome" description="Launch a Chrome WebDriver node">
+    <property name="browserName" value="chrome"/>
+    <property name="browserVersion" value="33.0"/>
+    <property name="port" value="5556"/>
+    <property name="specialTreatment" value="-Dwebdriver.chrome.driver=chromedriver"/>
+    <available property="chromedriver.exists" file="${jars}/chromedriver"/>
+    <antcall target="-chromedriver-available"/>
+    <antcall target="-chromedriver-missing"/>
+  </target>
+
+  <target name="-chromedriver-available" if="chromedriver.exists">
+    <antcall target="-launch-node"/>
+  </target>
+  <target name="-chromedriver-missing" unless="chromedriver.exists">
+    <echo message="Get Chrome driver from http://chromedriver.storage.googleapis.com/index.html and put it into the lib folder." />
+    <fail message="Chrome driver is missing!" />
+  </target>
+
+  <target name="launch-node-safari" description="Launch a Safari WebDriver node">
+    <property name="browserName" value="safari"/>
+    <property name="browserVersion" value="7.0.2"/>
+    <property name="port" value="5557"/>
+    <antcall target="-launch-node"/>
+  </target>
+
+  <target name="launch-node-ie" description="Launch a Internet Explorer WebDriver node">
+    <property name="browserName" value="internet explorer"/>
+    <property name="browserVersion" value="11.0"/>
+    <property name="port" value="5558"/>
+    <property name="specialTreatment" value="-Dwebdriver.ie.driver=IEDriverServer.exe"/>
+    <available property="iedriver.exists" file="${jars}/IEDriverServer.exe"/>
+    <antcall target="-iedriver-available"/>
+    <antcall target="-iedriver-missing"/>
+  </target>
+
+  <target name="-iedriver-available" if="iedriver.exists">
+    <antcall target="-launch-node"/>
+  </target>
+  <target name="-iedriver-missing" unless="iedriver.exists">
+    <echo message="Get Internet Explorer driver from http://selenium-release.storage.googleapis.com/index.html and put it into the lib folder." />
+    <fail message="Internet Explorer driver is missing!" />
+  </target>
+
+
+  <target name="-launch-node">
+    <property name="maxInstances" value="5"/>
+	  <property name="platform" value=""/>
+    <property name="nodeTimeout" value="30"/>
+    <property name="browserName" value="firefox"/>
+    <property name="browserVersion" value="22.0"/>
+    <property name="port" value="5555"/>
+    <property name="specialTreatment" value=""/>
+
+    <condition property="remote-socket.open">
+      <socket server="localhost" port="${port}"/>
+    </condition>
+    <antcall target="-start-node"/>
+  </target>
+  
+  <target name="-start-node" unless="remote-socket.open">
+    <exec dir="${jars}" executable="java" spawn="true">
+      <arg line="-jar selenium-server-standalone-${selenium.version-full}.jar" />
+      <arg line="-role webdriver" />
+      <arg line="-hub http://${hubHost}:${hubPort}/grid/register" />
+      <arg line="-port ${port}" />
+      <arg line="-browser &quot;browserName=${browserName},version=${browserVersion},maxInstances=${maxInstances}${platform}&quot;" />
+      <arg line="-maxSession ${maxInstances}" />
+      <arg line="-nodeTimeout ${nodeTimeout}" />
+      <arg line="${specialTreatment}" />
+    </exec>
+
+    <waitfor maxwait="3" maxwaitunit="minute" checkevery="100">
+      <socket server="localhost" port="${port}"/>
+    </waitfor>
+  </target>
+
+
+  <target name="launch-node-android" description="Launch an Android WebDriver node">
+    <fail message="Path to Android SDK is not set!">
+      <condition>
+        <equals arg1="${androidSDK}" arg2="/path/to/android-sdk"/>
+      </condition>
+    </fail>
+
+    <property name="nodeTimeout" value="30"/>
+    <property name="browserName" value="android"/>
+    <property name="browserVersion" value="4.1"/>
+    <property name="port" value="5559"/>
+    <exec dir="${jars}" executable="java" spawn="true">
+      <env key="ANDROID_HOME" path="${androidSDK}" />
+      <arg line="-jar selendroid-standalone-${selendroid.version}-with-dependencies.jar" />
+      <arg line="-deviceScreenshot" />
+      <arg line="-hub http://${hubHost}:${hubPort}/grid/register" />
+      <arg line="-port ${port}" />
+    </exec>
+
+    <waitfor maxwait="3" maxwaitunit="minute" checkevery="100">
+      <socket server="localhost" port="${port}"/>
+    </waitfor>
+    <condition property="node-port.open">
+      <socket server="localhost" port="${port}"/>
+    </condition>
+
+    <antcall target="-register-node-android"/>
+  </target>
+
+  <target name="-register-node-android" if="node-port.open">
+    <mkdir dir="bin"/>
+    <javac srcdir="src" destdir="bin" includeantruntime="false" includes="io/selendroid/grid/**"/>
+    <java classname="io.selendroid.grid.Register" fork="true" resultproperty="register.exitstatus">
+      <classpath>
+        <pathelement location="bin"/>
+      </classpath>
+      <arg line="-hubHost ${hubHost}"/>
+      <arg line="-hubPort ${hubPort}"/>
+      <arg line="-port ${port}" />
+      <arg line="-browserName ${browserName}"/>
+      <arg line="-browserVersion ${browserVersion}"/>
+      <arg line="-nodeTimeout ${nodeTimeout}"/>
+    </java>
+
+    <fail message="Registration failed!">
+      <condition>
+        <not>
+          <equals arg1="${register.exitstatus}" arg2="0"/>
+        </not>
+      </condition>
+    </fail>
+  </target>
+
+
+  <target name="stop-nodes" description="Stop all running WebDriver nodes">
+    <exec executable="bash" osfamily="Unix">
+      <arg value="-c"/>
+      <arg value="kill -9 `ps ux | awk '/.jar -role webdriver/ &amp;&amp; !/awk/ {print $2}'`"/>
+    </exec>
+    <exec executable="bash" osfamily="Unix">
+      <arg value="-c"/>
+      <arg value="kill -9 `ps ux | awk '/-with-dependencies.jar -deviceScreenshot/ &amp;&amp; !/awk/ {print $2}'`"/>
+    </exec>
+
+    <exec executable="cmd" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="WMIC PROCESS where &quot;Commandline like '.jar -role webdriver%'&quot; call terminate"/>
+    </exec>
+    <exec executable="cmd" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="WMIC PROCESS where &quot;Commandline like '-with-dependencies.jar -deviceScreenshot webdriver%'&quot; call terminate"/>
+    </exec>
+  </target>
+
+
+
+  <!-- *** compile and execute tests *************************************** -->
+  <target name="compile" depends="-classpath">
+    <mkdir dir="bin"/>
+    <javac srcdir="src" destdir="bin" classpathref="classpath" includeantruntime="false" excludes="io/selendroid/grid/**"/>
+  </target>
+
+  <target name="runcukes" depends="compile" description="Execute Cucumber Tests">
+    <property name="options" value=""/>
+    <parallel>
+      <java classname="cucumber.api.cli.Main" fork="true" failonerror="false" resultproperty="cucumber-slow.exitstatus">
+        <classpath refid="classpath"/>
+        <sysproperty key="website" value="${website}" />
+        <sysproperty key="hubHost" value="${hubHost}" />
+        <sysproperty key="hubPort" value="${hubPort}" />
+        <arg line="--format pretty"/>
+        <arg line="--format html:bin/cucumber-html-report-slow"/>
+        <arg line="--glue at.tugraz.ist.cucumber"/>
+        <arg line="--tags @slow"/>
+        <arg line="${options}"/>
+        <arg value="src/features"/>
+      </java>
+
+      <java classname="cucumber.api.cli.Main" fork="true" failonerror="false" resultproperty="cucumber-fast.exitstatus">
+        <classpath refid="classpath"/>
+        <sysproperty key="website" value="${website}" />
+        <sysproperty key="hubHost" value="${hubHost}" />
+        <sysproperty key="hubPort" value="${hubPort}" />
+        <arg line="--format pretty"/>
+        <arg line="--format html:bin/cucumber-html-report-fast"/>
+        <arg line="--glue at.tugraz.ist.cucumber"/>
+        <arg line="--tags @fast"/>
+        <arg line="${options}"/>
+        <arg value="src/features"/>
+      </java>
+    </parallel>
+
+    <fail message="Cucumber failed">
+      <condition>
+        <or>
+          <not>
+            <equals arg1="${cucumber-slow.exitstatus}" arg2="0"/>
+          </not>
+          <not>
+            <equals arg1="${cucumber-fast.exitstatus}" arg2="0"/>
+          </not>
+        </or>
+      </condition>
+    </fail>
+  </target>
+
+  <target name="runcukes-standalone" depends="launch-hub,launch-node-firefox" description="Execute Cucumber Tests">
+    <property name="options" value="--tags @pocket-code"/>
+    <antcall target="runcukes"/>
+  </target>
+
+
+
+  <!-- *** clean-up methods ************************************************ -->
+  <target name="clean">
+    <delete dir="bin"/>
+  </target>
+
+  <target name="clobber" depends="clean">
+    <delete dir="${jars}"/>
+  </target>
+</project>

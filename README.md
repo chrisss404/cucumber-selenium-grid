@@ -4,8 +4,7 @@ The [Java implementation](https://github.com/cucumber/cucumber-jvm) of Cucumber 
 - [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 - [Apache Ant](http://ant.apache.org/)
 
-This allows to perform automated acceptance tests on web applications employing a variety of web browsers on different platforms, as demonstrated in the [practical example](#practical-example). Unfortunately, the parallel execution of tests is limited to the creation of groups and to run each group in its own Cucumber instance leading to multiple test reports. This implementation runs two instances in parallel including the groups *@slow* and *@fast*.
-Another limitation is that all step definitions are located in a single file. Therefore an implementation for productive use should apply [dependency injection](http://cukes.info/install-cucumber-jvm.html) for a better code organisation.
+This allows to perform automated acceptance tests on web applications employing a variety of web browsers on different platforms, as demonstrated in the [practical example](#practical-example). Unfortunately, the parallel execution of tests is limited to the creation of groups and to run each group in its own Cucumber instance leading to multiple test reports. This implementation runs two instances in parallel including the groups separated by the tags *@slow* and *@fast*. Another limitation is that all step definitions are located in a single file. Therefore an implementation for productive use should apply [dependency injection](http://cukes.info/install-cucumber-jvm.html) for a better code organisation.
 
 ----
 
@@ -55,63 +54,48 @@ An example of the grid hub console with connected nodes, as described above, is 
 
 ### Ant Targets
 
-**download-devel**
-Downloads development libraries to compile and execute tests.
+**`download-devel`** Downloads development libraries to compile and execute tests.
 
-**download-util**
-Downloads utility libraries to launch Selenium Grid hub or Selenium WebDriver nodes.
+**`download-util`** Downloads utility libraries to launch Selenium Grid hub or Selenium WebDriver nodes.
 
-**download**
-Downloads *development* and *utility* libraries.
+**`download`** Downloads *development* and *utility* libraries.
 
-**launch-hub**
-Launches a Selenium Grid hub instance.
+**`launch-hub`** Launches a Selenium Grid hub instance.
 - define individual hub port: `-DhubPort=4445`
 
-**stop-hub**
-Halts running Selenium Grid hub instances.
+**`stop-hub`** Halts running Selenium Grid hub instances.
 
-**launch-node-firefox**
-Launches a Firefox WebDriver instance and connects it to the Selenium Grid hub.
+**`launch-node-firefox`** Launches a Firefox WebDriver instance and connects it to the Selenium Grid hub.
 - define individual hub host: `-DhubHost=192.168.1.150`
 - define individual hub port: `-DhubPort=4445`
 
-**launch-node-chrome**
-Launches a Chrome WebDriver instance and connects it to the Selenium Grid hub, requires [Chromedriver](http://chromedriver.storage.googleapis.com/index.html) in the `lib` folder.
+**`launch-node-chrome`** Launches a Chrome WebDriver instance and connects it to the Selenium Grid hub, requires [Chromedriver](http://chromedriver.storage.googleapis.com/index.html) in the `lib` folder.
 - define individual hub host: `-DhubHost=192.168.1.150`
 - define individual hub port: `-DhubPort=4445`
 
-**launch-node-safari**
-Launches a Safari WebDriver instance and connects it to the Selenium Grid hub.
+**`launch-node-safari`** Launches a Safari WebDriver instance and connects it to the Selenium Grid hub.
 - define individual hub host: `-DhubHost=192.168.1.150`
 - define individual hub port: `-DhubPort=4445`
 
-**launch-node-ie**
-Launches a Internet Explorer WebDriver instance and connects it to the Selenium Grid hub, requires [IEDriverServer](http://selenium-release.storage.googleapis.com/index.html) in the `lib` folder.
+**`launch-node-ie`** Launches a Internet Explorer WebDriver instance and connects it to the Selenium Grid hub, requires [IEDriverServer](http://selenium-release.storage.googleapis.com/index.html) in the `lib` folder.
 - define individual hub host: `-DhubHost=192.168.1.150`
 - define individual hub port: `-DhubPort=4445`
 
-**launch-node-android**
-Launches an Android WebDriver instance and connects it to the Selenium Grid hub, requires the [Android SDK](https://developer.android.com/sdk/index.html) and its location (by setting the `androidSDK` property).
+**`launch-node-android`** Launches an Android WebDriver instance and connects it to the Selenium Grid hub, requires the [Android SDK](https://developer.android.com/sdk/index.html) and its location (by setting the `androidSDK` property).
 - define Android SDK location: `-DandroidSDK=../android-sdks`
 - define individual hub host: `-DhubHost=192.168.1.150`
 - define individual hub port: `-DhubPort=4445`
 
-**stop-nodes**
-Halts running Selenium WebDriver instances.
+**`stop-nodes`** Halts running Selenium WebDriver instances.
 
-**runcukes**
-Compiles step definitions and executes features.
+**`runcukes`** Compiles step definitions and executes features.
 - define Cucumber arguments: `-Doptions="--tags @demo"`
 - define individual hub host: `-DhubHost=192.168.1.150`
 - define individual hub port: `-DhubPort=4445`
 
-**runcukes-standalone**
-Launches a Grid hub, a Firefox WebDriver and executes all scenarios tagged *@pocket-code*.
+**`runcukes-standalone`** Launches a Grid hub, a Firefox WebDriver and executes all scenarios tagged *@pocket-code*.
 
-**clean**
-Deletes compiled classes and previously generated test reports.
+**`clean`** Deletes compiled classes and previously generated test reports.
 
-**clobber**
-Deletes compiled classes, previously generated test reports, and downloaded libraries.
+**`clobber`** Deletes compiled classes, previously generated test reports, and downloaded libraries.
 
