@@ -33,6 +33,9 @@ import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.UnreachableBrowserException;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -84,17 +87,22 @@ public class SeleniumStepdefs {
   public void I_use_Chrome_browser() throws Throwable {
     runOnChrome();
   }
-  
+
   @Given("^I use Safari browser$")
   public void I_use_Safari_browser() throws Throwable {
     runOnSafari();
   }
-  
+
   @Given("^I use Internet Explorer browser$")
   public void I_use_Internet_Explorer_browser() throws Throwable {
     runOnInternetExplorer();
   }
-  
+
+  @Given("^I use PhantomJS browser$")
+  public void I_use_PhantomJS_browser() throws Throwable {
+    runOnPhantomJs();
+  }
+
   @Given("^I use Android browser$")
   public void I_use_Android_browser() throws Throwable {
     runOnAndroid();
@@ -228,6 +236,11 @@ public class SeleniumStepdefs {
     initDriver(capabilities);
   }
 
+  private void runOnPhantomJs() {
+    DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
+    initDriver(capabilities);
+  }
+
   private void runOnAndroid() {
     DesiredCapabilities capabilities = DesiredCapabilities.android();
     initDriver(capabilities);
@@ -252,12 +265,18 @@ public class SeleniumStepdefs {
   }
 
 
-  private void jqueryWait() throws InterruptedException {
-    boolean rdy = false;
-    while(!rdy) {
-      Thread.sleep(500);
-      rdy = ((Boolean) ((JavascriptExecutor) driver).executeScript("return (typeof window.jQuery === 'function' && window.jQuery.active == 0)"));
-    }
+  private void jqueryWait() {
+    Wait<WebDriver> wait = new WebDriverWait(driver(), 60);
+    wait.until(jQueryReady());
+  }
+
+  private ExpectedCondition<Boolean> jQueryReady() {
+    return new ExpectedCondition<Boolean>() {
+      public Boolean apply(WebDriver driver) {
+        return ((Boolean) ((JavascriptExecutor) driver).executeScript(
+          "return (typeof window.jQuery === 'function' && window.jQuery.active == 0)"));
+      }
+    };
   }
 
   private boolean isTextPresent(String text) throws InterruptedException {

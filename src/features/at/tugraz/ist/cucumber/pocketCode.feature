@@ -17,7 +17,7 @@ Feature: Provide key functionalities to Catrobats community website
     Examples:
     	| language      | title            |
     	| Deutsch       | NEUESTE          |
-    	| 日本語         | 最新プロジェクト   |
+    	| 日本語         | 最新             |
     	| русский       | НОВЕЙШИЕ ПРОЕКТЫ |
     	| Bahasa Melayu‬ | PROJEK TERBARU   |
 

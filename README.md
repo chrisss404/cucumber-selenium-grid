@@ -81,6 +81,10 @@ An example of the grid hub console with connected nodes, as described above, is 
 - define individual hub host: `-DhubHost=192.168.1.150`
 - define individual hub port: `-DhubPort=4445`
 
+**`launch-node-phantomjs`** Launches a PhantomJS WebDriver instance and connects it to the Selenium Grid hub, requires [PhantomJS](http://phantomjs.org/download.html) in the `lib` folder.
+- define individual hub host: `-DhubHost=192.168.1.150`
+- define individual hub port: `-DhubPort=4445`
+
 **`launch-node-android`** Launches an Android WebDriver instance and connects it to the Selenium Grid hub, requires the [Android SDK](https://developer.android.com/sdk/index.html) and its location (by setting the `androidSDK` property).
 - define Android SDK location: `-DandroidSDK=../android-sdks`
 - define individual hub host: `-DhubHost=192.168.1.150`

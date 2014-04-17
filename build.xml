@@ -201,6 +201,36 @@
     <fail message="Internet Explorer driver is missing!" />
   </target>
 
+  <target name="launch-node-phantomjs" description="Launch a PhantomJS WebDriver node">
+    <property name="browserName" value="phantomjs"/>
+    <property name="browserVersion" value="1.9.7"/>
+    <property name="port" value="5560"/>
+    
+    <condition property="phantomjs.exists">
+      <or>
+        <available file="${jars}/phantomjs.exe"/>
+        <available file="${jars}/phantomjs"/>
+      </or>
+    </condition>
+    <condition property="specialTreatment" value="-Dphantomjs.binary.path=phantomjs.exe">
+      <available file="${jars}/phantomjs.exe"/>
+    </condition>
+    <condition property="specialTreatment" value="-Dphantomjs.binary.path=phantomjs">
+      <available file="${jars}/phantomjs"/>
+    </condition>
+
+    <antcall target="-phantomjs-available"/>
+    <antcall target="-phantomjs-missing"/>
+  </target>
+
+  <target name="-phantomjs-available" if="phantomjs.exists">
+    <antcall target="-launch-node"/>
+  </target>
+  <target name="-phantomjs-missing" unless="phantomjs.exists">
+    <echo message="Get PhantomJS driver from http://phantomjs.org/download.html and put it into the lib folder." />
+    <fail message="PhantomJS driver is missing!" />
+  </target>
+
 
   <target name="-launch-node">
     <property name="maxInstances" value="5"/>
