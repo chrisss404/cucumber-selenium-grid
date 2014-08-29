@@ -113,10 +113,10 @@ public class SeleniumStepdefs {
     driver().get(this.website);
   }
 
-  @Given("^the websites language is \"([^\"]*)\"$")
+  @Given("^the website's language is \"([^\"]*)\"$")
   public void the_websites_language_is(String language) throws Throwable {
     I_change_the_language_to(language);
-    Assert.assertTrue(driver().findElement(By.xpath("//*[@id=\"switchLanguage\"]/option[@selected]")).getText().contains(language));
+    Assert.assertTrue(driver().findElement(By.xpath("//*[@id='switchLanguage']/option[@selected]")).getText().contains(language));
   }
 
   @Given("^I am on the details page of the project (\\d+)$")
@@ -166,14 +166,14 @@ public class SeleniumStepdefs {
 
   @When("^I press the download button$")
   public void I_press_the_download_button() throws Throwable {
-    WebElement downloadButton = driver().findElement(By.xpath("//*[@id='projectDetailsContainer']/div[3]/div/a[1]"));
+    WebElement downloadButton = driver().findElement(By.xpath("//*[@class='projectDetailsDownloadButton']/a[1]"));
     downloadButton.click();
   }
 
 
   @Then("^the title of the featured section should be \"([^\"]*)\"$")
   public void the_title_of_the_featured_section_should_be(String title) throws Throwable {
-    Assert.assertEquals(title, driver().findElement(By.xpath("//*[@id=\"programmOfTheWeek\"]/header")).getText());
+    Assert.assertEquals(title, driver().findElement(By.xpath("//*[@id='programmOfTheWeek']/header")).getText());
   }
 
   @Then("^the title of the newest section should be \"([^\"]*)\"$")
@@ -191,14 +191,15 @@ public class SeleniumStepdefs {
     captureScreen();
   }
 
-  @Then("^the number of search results should be (\\d+)$")
-  public void the_number_of_results_should_be(int numberOfSearchResults) throws Throwable {
-    Assert.assertEquals(numberOfSearchResults, Integer.parseInt(driver().findElement(By.id("numberOfSearchResults")).getText()));
+  @Then("^the number of search results should be at least (\\d+)$")
+  public void the_number_of_results_should_be_at_least(int numberOfSearchResults) throws Throwable {
+    int results = Integer.parseInt(driver().findElement(By.id("numberOfSearchResults")).getText());
+    Assert.assertTrue("<[" + numberOfSearchResults + "]> should be greater than or equal <[" + results + "]>", numberOfSearchResults >= results);
   }
 
   @Then("^the download count should be increased by one$")
   public void the_download_count_should_be_increased_by_one() throws Throwable {
-    By downloadCount = By.xpath("//*[@id='projectDetailsContainer']/div[6]/ul/li[4]/div[2]/span");
+    By downloadCount = By.xpath("//*[@class='projectDetailsInformation']/ul/li[4]/div[2]/span");
     int downloads = Integer.parseInt(driver().findElement(downloadCount).getText().split(" ")[0]);
 
     driver().navigate().refresh();
