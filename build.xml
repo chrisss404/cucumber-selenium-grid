@@ -24,8 +24,8 @@
   <property name="cucumber-html.version" value="0.2.3"/>
   <property name="junit.version" value="4.11"/>
 
-  <property name="selenium.version-minor" value="2.42"/>
-  <property name="selenium.version-full" value="2.42.2"/>
+  <property name="selenium.version-minor" value="2.43"/>
+  <property name="selenium.version-full" value="2.43.1"/>
   <property name="selendroid.version" value="0.11.0"/>
 
   <property name="guava.version" value="17.0"/>

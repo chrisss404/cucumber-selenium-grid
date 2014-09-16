@@ -194,7 +194,7 @@ public class SeleniumStepdefs {
   @Then("^the number of search results should be at least (\\d+)$")
   public void the_number_of_results_should_be_at_least(int numberOfSearchResults) throws Throwable {
     int results = Integer.parseInt(driver().findElement(By.id("numberOfSearchResults")).getText());
-    Assert.assertTrue("<[" + numberOfSearchResults + "]> should be greater than or equal <[" + results + "]>", numberOfSearchResults >= results);
+    Assert.assertTrue("<[" + results + "]> should be greater than or equal <[" + numberOfSearchResults + "]>", results >= numberOfSearchResults);
   }
 
   @Then("^the download count should be increased by one$")
